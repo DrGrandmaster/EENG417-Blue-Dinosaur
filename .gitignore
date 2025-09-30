@@ -2,4 +2,5 @@
 
 #simulink cache
 *.slxc
+*.asv
 slprj/
