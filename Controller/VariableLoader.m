@@ -1,6 +1,7 @@
 %% Loads important variables into your workspace.
 
-% 
+% Load controller
+load C.mat;
 
 %% Constants
 
