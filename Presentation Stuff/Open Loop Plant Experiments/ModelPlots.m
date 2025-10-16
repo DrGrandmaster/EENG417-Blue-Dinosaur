@@ -11,7 +11,7 @@ xlim('tickaligned');
 ylim('padded');
 xlabel("t / s", 'Interpreter','latex');
 ylabel("y / m", 'Interpreter','latex');
-title("Experimental and Simulated Open Loop Plant Pulse-Response", 'Interpreter','latex');
+title("Open Loop Plant Pulse-Response", 'Interpreter','latex');
 legend(["Experimental Data" "Non-Linear Simulation" "Linear Simulation"], 'Interpreter','latex');
 set(gca, 'FontSize', 14);
 set(gca, 'TickLabelInterpreter', 'latex');

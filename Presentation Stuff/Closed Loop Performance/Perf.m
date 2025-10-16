@@ -1,3 +1,39 @@
+%% Response
+load Sim.mat
+
+% Plot
+figure(1);
+
+plot(out.r, 'g', 'linewidth', 2);
+
+hold on;
+
+plot(out.e, 'r-', 'linewidth', 2);
+plot(out.e_c, 'r:', 'linewidth', 2);
+
+plot(out.y, 'k-', 'linewidth', 2);
+plot(out.y_c, 'k:', 'linewidth', 2);
+
+xlim('tight');
+xlim('tickaligned');
+ylim('padded');
+
+xlabel("\(t\) / s", 'Interpreter','latex');
+ylabel("Response / m", 'Interpreter','latex');
+
+yyaxis right
+
+plot(out.u, 'b-', 'linewidth', 2);
+plot(out.u_c, 'b:', 'linewidth', 2);
+ylabel("\(\dot{z}\) / m", 'Interpreter','latex');
+
+title("Closed Loop Step-Response", 'Interpreter','latex');
+
+legend(["Target" "Error" "CT Error" "Response" "CT Response" "Hoist Velocity" "CT Hoist Velocity"], 'Interpreter','latex');
+
+set(gca, 'FontSize', 14);
+set(gca, 'TickLabelInterpreter', 'latex');
+
 %% Performance
 
 load C.mat;
@@ -23,6 +59,7 @@ T = feedback(L, 1);
 A = allmargin(L);
 
 %% Bode
+figure(2);
 [mag, phase, w] = bode(L);
 mag = reshape(mag, [length(mag), 1]);
 phase = reshape(phase, [length(phase), 1]);
@@ -50,7 +87,7 @@ set(gca, 'TickLabelInterpreter', 'latex');
 nexttile;
 semilogx(w, phase);
 ylabel("Phase \(/ ^\circ\)", 'Interpreter','latex');
-xlabel("rad \(/\) s", 'Interpreter','latex');
+xlabel("\(\omega\ / \)\ rad \(/\) s", 'Interpreter','latex');
 
 % Margin stuff
 gainM = sprintf('* Gain Margin \\(= %.1f\\)\\,dB \\(\\rightarrow\\)', 20*log10(A.GainMargin(1)));
