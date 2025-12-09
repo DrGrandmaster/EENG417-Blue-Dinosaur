@@ -1,10 +1,10 @@
 %% Design Requirements
 
 % Overshoot
-os = 0.35;
+os = 0.19;
 
 % Settling Time
-ts = 12.5;
+ts = 7.9;
 
 %% Constants
 g = 9.81;
@@ -32,14 +32,14 @@ wn = 4.6 / (ts * zeta);
 
 des = roots([1 2*zeta*wn wn^2])';
 
-% Subordinate poles
-zetaSub = 0.001;
-wnSub = -(real(des(1))*10)/zetaSub;
+% Controller Subordinate poles
+zetaSub = 0.1;
+wnSub = -(real(des(1))*20)/zetaSub;
 desSub = roots([1 2*zetaSub*wnSub, (wnSub)^2])';
 
-% Controller
+% Poles
 cPoles = [des, desSub];
-ePoles = [0.5*des, -100];
+ePoles = [0.5*des, real(des(1))*10];
 
 %% Gains
 
@@ -65,9 +65,12 @@ T = feedback(Gs*Cfull, -1, 2, 1);
 T = T(1);
 
 figure(1);
-step(T);
+s = timeoptions;
+s.SettleTimeThreshold = 0.01;
+stepplot(T, s);
+
 grid on;
-stepinfo(T)
+stepinfo(T, 'SettlingTimeThreshold', 0.01)
 
 allmargin(-Cs*Gs)
 
