@@ -1,10 +1,10 @@
 %% Design Requirements
 
 % Overshoot
-os = 0.01;
+os = 0.35;
 
 % Settling Time
-ts = 8;
+ts = 12.5;
 
 %% Constants
 g = 9.81;
@@ -32,8 +32,13 @@ wn = 4.6 / (ts * zeta);
 
 des = roots([1 2*zeta*wn wn^2])';
 
+% Subordinate poles
+zetaSub = 0.001;
+wnSub = -(real(des(1))*10)/zetaSub;
+desSub = roots([1 2*zetaSub*wnSub, (wnSub)^2])';
+
 % Controller
-cPoles = [des, 100*des];
+cPoles = [des, desSub];
 ePoles = [0.5*des, -100];
 
 %% Gains
