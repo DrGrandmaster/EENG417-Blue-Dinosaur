@@ -39,7 +39,7 @@ D = 0;
 sys = ss(A,B,C,D);
 
 %determine K and L poles with L being 2 times faster than K
-% Poles_K = [(-3.74+j*3), (-3.74-j*3), -20];
+%Poles_K = [(-3.74+j*3), (-3.74-j*3), -20];
 % Ts 9
 %Poles_K = [(-0.4444 + 0.8675i), (-0.4444 - 0.8675i), (-2.2222 + 0.0000i)];
 % Ts 10 OS 0.3
@@ -53,7 +53,11 @@ sys = ss(A,B,C,D);
 % OS .15 Ts 5
 %Poles_K = [(-0.8000 + 1.3248i), (-0.8000 - 1.3248i), (-4.0000 + 0.0000i)];
 % os .12 ts 4.5
-%Poles_K = []
+Poles_K = [(-1+1.365i), (-1-1.365i),(-4.8)];
+% os .14 ts 4.7
+%Poles_K = [(-0.8511 + 1.3599i), (-0.8511 - 1.3599i), (-4.2553 + 0.0000i)];
+%Poles_K = [(-.8889+1.3171i),(-.8889-1.3171i),(-4.444)];
+
 
 
 % Estimator poles (real part *4)
@@ -65,7 +69,7 @@ Poles_L = 4*Poles_K;
  
 %determine K and L
 K = place(A,B, Poles_K);
-L = place(A',C', Poles_L)';
+L = place(A',C', Poles_L).';
  
 %set up new System with K and L
 Acl = [A -B*K ; L*C A-B*K-L*C];
@@ -73,8 +77,8 @@ Bcl = [B;B];
 Ccl = [C zeros(1,3)];
 
 % N = ((C-D*K)*(B*K-A)^-1 *B+D)^-1;
-% N = -1/(C*((A-B*K)\B));
-N = Ccl*(-Acl)^-1*Bcl;
+ N = -1/(C*((A-B*K)\B));
+% N = Ccl*(-Acl)^-1*Bcl;
 
 %Acl = [A - B*K,       B*K;
 %       zeros(3,3),    A - L*C];
@@ -92,8 +96,8 @@ INFO = stepinfo(LQR_sys);
 step(LQR_sys)
 
  
-% Poles_K= [(-0.8000 + 0.6424i), (-0.8000 - 0.6424i), (-4.0000 + 0.0000i)];
-%Poles_K = [(-0.8000 + 1.5616i), (-0.8000 - 1.5616i), (-4.0000 + 0.0000i)];
+%Poles_K= [(-0.8000 + 0.6424i), (-0.8000 - 0.6424i), (-4.0000 + 0.0000i)];
+%         Poles_K = [(-0.8000 + 1.5616i), (-0.8000 - 1.5616i), (-4.0000 + 0.0000i)];
 %Poles_K = [(-0.5000 + 0.9760i), (-0.5000 - 0.9760i), (-2.5000 + 0.0000i)];
 %Poles_K = [(-0.4000 + 0.7808i), (-0.4000 - 0.7808i), (-2.0000 + 0.0000i)];
  %Poles_K = [(-0.3333 + 0.6507i), (-0.3333 - 0.6507i), (-1.6667 + 0.0000i)];
