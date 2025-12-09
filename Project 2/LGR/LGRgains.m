@@ -34,7 +34,7 @@ des = roots([1 2*zeta*wn wn^2])';
 
 % Controller Subordinate poles
 zetaSub = 0.1;
-wnSub = -(real(des(1))*20)/zetaSub;
+wnSub = -(real(des(1))*3)/zetaSub;
 desSub = roots([1 2*zetaSub*wnSub, (wnSub)^2])';
 
 % Poles
@@ -43,7 +43,7 @@ ePoles = [0.5*des, real(des(1))*10];
 
 %% Gains
 
-% Controller
+% ControllerA = 
 
 K_q = place(Aq, Bq, cPoles);
 K_x = K_q(1:(end-1));
