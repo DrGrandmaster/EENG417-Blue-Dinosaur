@@ -95,12 +95,28 @@ LQR_sys = ss(Acl,Bcl,Ccl,D);
 INFO = stepinfo(LQR_sys);
 step(LQR_sys)
 
+allmargin(-LQR_sys*sys);
+
+
+figure(2);
+nyquistplot(-LQR_sys*sys);
+xlabel("Real Axis", "FontSize", 16, "FontWeight", "bold");
+ylabel("Imaginary Axis", "FontSize", 16, "FontWeight", "bold");
+title("Nyquist Plot", "FontSize", 18, "FontWeight", "bold");
+
+grid on;
+
+ax = gca;                     % get current axes
+ax.FontSize = 14;             % axis tick labels
+ax.LineWidth = 1.5;           % axes border
+
+
+
+
  
 %Poles_K= [(-0.8000 + 0.6424i), (-0.8000 - 0.6424i), (-4.0000 + 0.0000i)];
 %         Poles_K = [(-0.8000 + 1.5616i), (-0.8000 - 1.5616i), (-4.0000 + 0.0000i)];
 %Poles_K = [(-0.5000 + 0.9760i), (-0.5000 - 0.9760i), (-2.5000 + 0.0000i)];
 %Poles_K = [(-0.4000 + 0.7808i), (-0.4000 - 0.7808i), (-2.0000 + 0.0000i)];
  %Poles_K = [(-0.3333 + 0.6507i), (-0.3333 - 0.6507i), (-1.6667 + 0.0000i)];
-
-
 
