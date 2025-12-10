@@ -92,23 +92,26 @@ Ccl = [C zeros(1,3)];
 LQR_sys = ss(Acl,Bcl,Ccl,D);
 
  
-INFO = stepinfo(LQR_sys);
+INFO = stepinfo(LQR_sys, 'SettlingTimeThreshold', 0.01);
 step(LQR_sys)
+s = timeoptions;
+s.SettleTimeThreshold = 0.01;
+stepplot(LQR_sys, s);
 
 allmargin(-LQR_sys*sys);
 
 
 figure(2);
-nyquistplot(-LQR_sys*sys);
-xlabel("Real Axis", "FontSize", 16, "FontWeight", "bold");
-ylabel("Imaginary Axis", "FontSize", 16, "FontWeight", "bold");
-title("Nyquist Plot", "FontSize", 18, "FontWeight", "bold");
-
+n = nyquistplot(-LQR_sys*sys);
 grid on;
+zoomcp(n);
+% xlabel("Real Axis", "FontSize", 16, "FontWeight", "bold");
+% ylabel("Imaginary Axis", "FontSize", 16, "FontWeight", "bold");
+% title("Nyquist Plot", "FontSize", 18, "FontWeight", "bold");
 
-ax = gca;                     % get current axes
-ax.FontSize = 14;             % axis tick labels
-ax.LineWidth = 1.5;           % axes border
+% ax = gca;                     % get current axes
+% ax.FontSize = 14;             % axis tick labels
+% ax.LineWidth = 1.5;           % axes border
 
 
 
